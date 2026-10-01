@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>UX/UI | Portfolio Details</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../img/favicon.ico" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../css/style.css" rel="stylesheet">
+
+  <style>
+    /* Safety: don't let template hide this page */
+    html, body { height: auto !important; }
+    body, #main, .portfolio-details { display:block !important; opacity:1 !important; visibility:visible !important; }
+
+    .ux-wrap{ padding: 26px 0 10px; }
+
+    /* WOW hero */
+    .pd-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: rgba(0,0,0,.55);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .pd-hero::before{
+      content:"";
+      position:absolute;
+      inset:-150px;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(90,150,255,.18), transparent 52%),
+        radial-gradient(circle at 82% 30%, rgba(24,210,110,.20), transparent 50%),
+        radial-gradient(circle at 55% 92%, rgba(255,187,44,.16), transparent 56%);
+      filter: blur(30px);
+      opacity: .95;
+      animation: floatGlow 10s ease-in-out infinite alternate;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes floatGlow{
+      0%{ transform: translateY(-10px) scale(1.02); }
+      100%{ transform: translateY(14px) scale(1.06); }
+    }
+    .pd-inner{ position: relative; z-index:1; padding: 22px; }
+
+    .pd-title{
+      font-family:"Poppins",sans-serif;
+      font-weight: 800;
+      letter-spacing:.2px;
+      margin: 0 0 6px;
+    }
+    .pd-sub{
+      color: rgba(255,255,255,.78);
+      margin: 0 0 14px;
+      max-width: 72ch;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 0; }
+    .chip{
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+    }
+
+    /* Slider compact + coverflow (like PS) */
+    .pd-slider{ padding: 18px 10px 26px; }
+    .pd-slider .swiper-slide{
+      width: 560px;
+      max-width: 90vw;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+      transform: translateZ(0);
+    }
+    .pd-slider .swiper-slide img{
+      display:block;
+      width: 100%;
+      height: 360px;
+      object-fit: contain; /* UI screens look better */
+      background: rgba(0,0,0,.35);
+      transition: transform .6s ease;
+    }
+    .pd-slider .swiper-slide-active{
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.65),
+        0 0 0 1px rgba(24,210,110,.25) inset,
+        0 0 30px rgba(24,210,110,.12);
+    }
+    .pd-slider .swiper-slide-active img{ transform: scale(1.02); }
+
+    .pd-slider .swiper-pagination-bullet{ background: rgba(255,255,255,.35); opacity:1; }
+    .pd-slider .swiper-pagination-bullet-active{ background: #18d26e; }
+
+    .pd-nav{ display:flex; gap:10px; justify-content:flex-end; }
+    .pd-btn{
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      color: #fff;
+      display:flex; align-items:center; justify-content:center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor: pointer;
+      user-select:none;
+    }
+    .pd-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(24,210,110,.16);
+      border-color: rgba(24,210,110,.35);
+    }
+
+    .pd-info{
+      background: rgba(0,0,0,.38);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .pd-info h3{ font-size: 18px; margin-bottom: 12px; }
+    .pd-info ul{ list-style:none; padding:0; margin:0 0 12px; font-size:14px; }
+    .pd-info ul li{ padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .pd-info ul li:last-child{ border-bottom: none; }
+    .pd-info p{ margin:0; color: rgba(255,255,255,.80); font-size:14px; }
+  </style>
+</head>
+
+<body>
+  <main id="main">
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container ux-wrap">
+
+        <div class="pd-hero">
+          <div class="pd-inner">
+            <div class="row gy-4 align-items-start">
+
+              <div class="col-lg-8">
+
+                <div class="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <h2 class="pd-title">UX/UI</h2>
+                    <p class="pd-sub">
+                      Two UI concepts designed in Figma: a “Hacker News” style app and a clean Sign-Up/Login experience.
+                    </p>
+
+                    <div class="chips">
+                      <span class="chip">UX/UI</span>
+                      <span class="chip">Figma</span>
+                      <span class="chip">Mobile UI</span>
+                      <span class="chip">Auth screens</span>
+                    </div>
+                  </div>
+
+                  <div class="pd-nav">
+                    <button class="pd-btn pd-prev" aria-label="Previous slide">
+                      <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="pd-btn pd-next" aria-label="Next slide">
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="portfolio-details-slider swiper pd-slider">
+                  <div class="swiper-wrapper align-items-center">
+                    <div class="swiper-slide">
+                      <img src="../img/uxui/UXUI/apphacker.png" alt="App Hacker News UI" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide">
+                      <img src="../img/uxui/UXUI/signloginpage.png" alt="Sign up / Login page UI" loading="lazy">
+                    </div>
+                  </div>
+
+                  <div class="swiper-pagination"></div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-4">
+                <div class="pd-info">
+                  <h3>Project information</h3>
+                  <ul>
+                    <li><strong>Category</strong>: Web Design</li>
+                    <li>
+                      <strong>Figma</strong>:
+                      <a href="https://www.figma.com/file/MZPFaN8crxn2o8xPpe3WXV/App-Hacker-News?node-id=3-564" target="_blank" rel="noopener">
+                        App Hacker News
+                      </a>
+                    </li>
+                    <li>
+                      <strong>Figma</strong>:
+                      <a href="https://www.figma.com/file/cBLbXIrbWy4YYAD4HO281L/Sign-Up-Page?node-id=0%3A1&t=45tOzMewED10Kjtt-1" target="_blank" rel="noopener">
+                        Sign Up Page
+                      </a>
+                    </li>
+                  </ul>
+
+                  <p>
+                    Focus: clarity, spacing, readable typography, and a clean UI flow for navigation and authentication screens.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Vendor JS Files -->
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../js/main.js"></script>
+
+  <script>
+    // Swiper coverflow setup (similar to PS) [web:160][web:315]
+    new Swiper('.portfolio-details-slider', {
+      loop: true,
+      speed: 900,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      grabCursor: true,
+      spaceBetween: 26,
+      autoplay: {
+        delay: 2600,
+        disableOnInteraction: false
+      },
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 70,
+        depth: 220,
+        modifier: 1,
+        slideShadows: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.pd-next',
+        prevEl: '.pd-prev'
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>Adobe Illustrator | Elma Saliji</title>
+  <meta name="description" content="Ausgewählte Illustrationen und Grafikdesign-Arbeiten erstellt in Adobe Illustrator." />
+  <meta name="keywords" content="Adobe Illustrator, Grafikdesign, Illustration, Portfolio" />
+
+  <link href="../img/favicon.ico" rel="icon" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+  <link href="../css/style.css" rel="stylesheet" />
+
+  <style>
+    /* --- Page layout --- */
+    .pd-wrap{
+      position: relative;
+      padding: 36px 0 26px;
+    }
+
+    .pd-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: rgba(0,0,0,.55);
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+
+    /* animated gradient glow behind card */
+    .pd-hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(24,210,110,.35), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(99,237,163,.22), transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(255,187,44,.18), transparent 50%);
+      filter: blur(28px);
+      opacity: .85;
+      transform: translate3d(0,0,0);
+      animation: floatGlow 10s ease-in-out infinite alternate;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes floatGlow{
+      0%{ transform: translateY(-10px) scale(1.02); }
+      100%{ transform: translateY(14px) scale(1.06); }
+    }
+
+    .pd-inner{
+      position: relative;
+      z-index: 1;
+      padding: 28px;
+    }
+
+    .pd-title{
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      letter-spacing: .2px;
+      margin: 0 0 6px;
+    }
+    .pd-sub{
+      color: rgba(255,255,255,.78);
+      margin: 0 0 18px;
+      max-width: 60ch;
+    }
+
+    /* --- Slider: smaller + wow coverflow --- */
+    .pd-slider{
+      padding: 22px 10px 34px;
+    }
+
+    .pd-slider .swiper-slide{
+      width: 420px;             /* makes it not full width */
+      max-width: 86vw;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.06) inset;
+      transform: translateZ(0);
+    }
+
+    .pd-slider .swiper-slide img{
+      display:block;
+      width:100%;
+      height: 320px;            /* keeps slider compact */
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    /* active slide gets extra pop */
+    .pd-slider .swiper-slide-active{
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.65),
+        0 0 0 1px rgba(24,210,110,.25) inset,
+        0 0 30px rgba(24,210,110,.12);
+    }
+    .pd-slider .swiper-slide-active img{
+      transform: scale(1.05);
+    }
+
+    .pd-slider .swiper-pagination-bullet{
+      background: rgba(255,255,255,.35);
+      opacity: 1;
+    }
+    .pd-slider .swiper-pagination-bullet-active{
+      background: #18d26e;
+    }
+
+    .pd-nav{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pd-btn{
+      width:42px;
+      height:42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pd-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(24,210,110,.16);
+      border-color: rgba(24,210,110,.35);
+    }
+
+    /* --- Right column card --- */
+    .pd-info{
+      background: rgba(0,0,0,.40);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .pd-info h3{
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .pd-info ul{
+      list-style:none;
+      padding:0;
+      margin:0 0 14px;
+      font-size: 14px;
+    }
+    .pd-info ul li{
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .pd-info ul li:last-child{ border-bottom: none; }
+
+    .pd-link{
+      display:block;
+      text-align:center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(24,210,110,.16);
+      border: 1px solid rgba(24,210,110,.35);
+      color:#fff;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .pd-link:hover{
+      transform: translateY(-1px);
+      background: rgba(24,210,110,.24);
+      color:#fff;
+    }
+
+    /* small entrance animation */
+    .reveal{
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.is-in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <main id="main">
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container pd-wrap">
+        <div class="pd-hero reveal">
+          <div class="pd-inner">
+            <div class="row gy-4 align-items-start">
+              <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <h2 class="pd-title">Adobe Illustrator</h2>
+                    <p class="pd-sub">
+                      Ausgewählte Vektor-Illustrationen für Web & Social Media – mit Fokus auf saubere Formen,
+                      konsistente Linien und wiederverwendbare Assets.
+                    </p>
+                  </div>
+
+                  <div class="pd-nav">
+                    <button class="pd-btn pd-prev" aria-label="Previous slide">
+                      <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="pd-btn pd-next" aria-label="Next slide">
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- WOW slider -->
+                <div class="swiper pd-slider portfolio-details-slider">
+                  <div class="swiper-wrapper align-items-center">
+                    <div class="swiper-slide">
+                      <img src="../img/Adobe/Illustrator/01.png" alt="Adobe Illustrator Arbeit 01" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="../img/Adobe/Illustrator/02.png" alt="Adobe Illustrator Arbeit 02" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="../img/Adobe/Illustrator/03.png" alt="Adobe Illustrator Arbeit 03" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                      <img src="../img/Adobe/Illustrator/05.png" alt="Adobe Illustrator Arbeit 04" loading="lazy">
+                    </div>
+                  </div>
+
+                  <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="row g-3 mt-1">
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Highlights</h3>
+                      <ul>
+                        <li><strong>Deliverables:</strong> Illustrationen, Icons, Social Visuals</li>
+                        <li><strong>Stil:</strong> klar, modern, web-optimiert</li>
+                        <li><strong>Einsatz:</strong> Web, Landing Pages, Social Media</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Prozess</h3>
+                      <ul>
+                        <li>Skizze → Vektorformen → Feinschliff</li>
+                        <li>Farbpalette & Kontrast prüfen</li>
+                        <li>Export für Web (PNG/SVG je nach Bedarf)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-4">
+                <div class="pd-info reveal">
+                  <h3>Projektinformationen</h3>
+                  <ul>
+                    <li><strong>Kategorie</strong>: Grafikdesign / Illustration</li>
+                    <li><strong>Tools</strong>: Adobe Illustrator</li>
+                    <li>
+                      <strong>Link</strong>:
+                      <a href="https://www.behance.net/gallery/169643523/Adobe-Illustrator" target="_blank" rel="noopener">
+                        Behance ansehen
+                      </a>
+                    </li>
+                  </ul>
+
+                  <a class="pd-link" href="https://www.behance.net/gallery/169643523/Adobe-Illustrator" target="_blank" rel="noopener">
+                    Mehr Arbeiten ansehen
+                  </a>
+
+                
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // entrance animation
+    const revealEls = document.querySelectorAll('.reveal');
+    const reveal = () => revealEls.forEach((el, i) => {
+      setTimeout(() => el.classList.add('is-in'), 80 * i);
+    });
+    window.addEventListener('load', reveal);
+
+    // Swiper wow effect (coverflow)
+    // Swiper supports coverflow/creative/fade effects with configuration in JS [web:160][web:169]
+    const swiper = new Swiper('.portfolio-details-slider', {
+      loop: true,
+      speed: 900,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      grabCursor: true,
+      spaceBetween: 26,
+      autoplay: {
+        delay: 2600,
+        disableOnInteraction: false
+      },
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 70,
+        depth: 220,
+        modifier: 1,
+        slideShadows: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.pd-next',
+        prevEl: '.pd-prev'
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>Social Media | @bosnabaeckerei | Elma Saliji</title>
+  <meta name="description" content="Social Media & Print Production: Content-Set für @bosnabaeckerei – Logo, Banner, Flyer, Öffnungszeiten und Promo-Assets." />
+  <meta name="keywords" content="Social Media, Instagram, Content Design, Print Production, Branding, Portfolio" />
+
+  <link href="../img/favicon.ico" rel="icon" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+  <link href="../css/style.css" rel="stylesheet" />
+
+  <style>
+    :root{
+      --gold:#f5c54c;
+      --blue:#4aa3ff;
+      --ink: rgba(255,255,255,.94);
+      --muted: rgba(255,255,255,.78);
+      --card: rgba(0,0,0,.58);
+      --card2: rgba(0,0,0,.46);
+      --line: rgba(255,255,255,.10);
+    }
+
+    .pd-wrap{ position: relative; padding: 36px 0 26px; }
+
+    .pd-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+
+    .pd-hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(245,197,76,.22), transparent 45%),
+        radial-gradient(circle at 82% 30%, rgba(255,80,90,.16), transparent 45%),
+        radial-gradient(circle at 55% 88%, rgba(74,163,255,.14), transparent 55%);
+      filter: blur(28px);
+      opacity: .90;
+      transform: translate3d(0,0,0);
+      animation: floatGlow 10s ease-in-out infinite alternate;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes floatGlow{
+      0%{ transform: translateY(-10px) scale(1.02); }
+      100%{ transform: translateY(14px) scale(1.06); }
+    }
+
+    .pd-inner{ position: relative; z-index: 1; padding: 28px; }
+
+    .pd-title{
+      font-family: "Poppins", sans-serif;
+      font-weight: 900;
+      letter-spacing: .2px;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+
+    .pd-sub{
+      color: var(--muted);
+      margin: 0 0 14px;
+      max-width: 74ch;
+      line-height: 1.65;
+    }
+
+    .tagrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .tag{
+      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      user-select:none;
+      white-space: nowrap;
+    }
+
+    .pd-info{
+      background: var(--card2);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .pd-info h3{
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-weight: 900;
+      font-family:"Poppins",sans-serif;
+      letter-spacing: .1px;
+    }
+    .pd-info p{ margin: 0 0 10px; color: var(--muted); line-height: 1.65; }
+    .pd-info ul{ list-style:none; padding:0; margin:0; font-size: 14px; color: rgba(255,255,255,.84); }
+    .pd-info ul li{ padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.08); line-height: 1.55; }
+    .pd-info ul li:last-child{ border-bottom: none; }
+
+    .metric-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .metric{
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
+    }
+    .metric .k{ font-size: 12px; color: rgba(255,255,255,.70); margin-bottom: 4px; }
+    .metric .v{ font-family:"Poppins",sans-serif; font-weight: 900; font-size: 18px; color: #fff; line-height: 1.1; }
+
+    /* Slider (less transparent, readable) */
+    .pd-slider{ padding: 18px 10px 30px; }
+    .pd-slider .swiper-slide{
+      width: 520px;
+      max-width: 92vw;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0,0,0,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 50px rgba(0,0,0,.58), 0 0 0 1px rgba(255,255,255,.05) inset;
+      transform: translateZ(0);
+    }
+    .asset{ position: relative; width: 100%; height: 360px; background: rgba(0,0,0,.35); }
+    .asset img{ width: 100%; height: 100%; object-fit: contain; display:block; background: rgba(0,0,0,.22); }
+
+    .cap{
+      position:absolute; left: 12px; right: 12px; bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.70);
+      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+      color: rgba(255,255,255,.92);
+      font-size: 13px;
+      line-height: 1.45;
+      backdrop-filter: blur(10px);
+    }
+    .cap strong{
+      display:block;
+      font-family:"Poppins",sans-serif;
+      font-weight: 900;
+      letter-spacing: .2px;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .pd-slider .swiper-slide-active{
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.70),
+        0 0 0 1px rgba(245,197,76,.24) inset,
+        0 0 34px rgba(245,197,76,.10);
+    }
+    .pd-slider .swiper-pagination-bullet{ background: rgba(255,255,255,.35); opacity: 1; }
+    .pd-slider .swiper-pagination-bullet-active{ background: var(--gold); }
+
+    .pd-nav{ display:flex; gap:10px; align-items:center; justify-content:flex-end; }
+    .pd-btn{
+      width:42px; height:42px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pd-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(245,197,76,.14);
+      border-color: rgba(245,197,76,.34);
+    }
+
+    /* Simple IG mock (static) */
+    .ig{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.62);
+      overflow:hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+    }
+    .ig-top{
+      display:flex; gap: 14px; align-items:center;
+      padding: 16px;
+      background: rgba(0,0,0,.55);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .ig-ava{
+      width: 56px; height: 56px; border-radius: 999px; overflow:hidden;
+      border: 2px solid rgba(245,197,76,.55);
+      box-shadow: 0 0 0 4px rgba(245,197,76,.10);
+      flex: 0 0 auto;
+      background: rgba(0,0,0,.35);
+    }
+    .ig-ava img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .ig-title{ flex: 1 1 auto; min-width: 0; }
+    .ig-handle{ font-family:"Poppins",sans-serif; font-weight: 900; margin:0; color:#fff; letter-spacing:.2px; font-size: 16px; }
+    .ig-bio{ margin: 4px 0 0; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.45; }
+    .ig-note{ margin-top: 8px; font-size: 13px; color: rgba(255,255,255,.70); }
+
+    .ig-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,.06);
+    }
+    .ig-post{
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .ig-post img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+      transition: transform .35s ease;
+    }
+    .ig-post:hover img{ transform: scale(1.05); }
+
+    .reveal{ opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-in{ opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 575px){
+      .asset{ height: 320px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main id="main">
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container pd-wrap">
+
+        <div class="pd-hero reveal">
+          <div class="pd-inner">
+
+            <div class="row gy-4 align-items-start">
+              <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <h2 class="pd-title">Social Media & Print – @bosnabaeckerei</h2>
+                    <p class="pd-sub">
+                      Ein kompaktes Set aus Logo, Promo-Visuals, Öffnungszeiten und Bannern.
+                      Alle Designs sind so aufgebaut, dass sie als Print funktionieren und leicht für Social Media angepasst werden können.
+                    </p>
+
+                    <div class="tagrow">
+                      <span class="tag"><i class="bi bi-instagram"></i> Instagram Content</span>
+                      <span class="tag"><i class="bi bi-printer"></i> Print Production</span>
+                      <span class="tag"><i class="bi bi-palette2"></i> Visual Identity</span>
+                      <span class="tag"><i class="bi bi-layout-text-window"></i> Templates</span>
+                    </div>
+                  </div>
+
+                  <div class="pd-nav">
+                    <button class="pd-btn pd-prev" aria-label="Vorheriges Asset"><i class="bi bi-chevron-left"></i></button>
+                    <button class="pd-btn pd-next" aria-label="Nächstes Asset"><i class="bi bi-chevron-right"></i></button>
+                  </div>
+                </div>
+
+                <div class="swiper pd-slider portfolio-details-slider reveal">
+                  <div class="swiper-wrapper align-items-center">
+
+                    <div class="swiper-slide">
+                      <div class="asset">
+                        <img src="../img/Bosna/logo.jpg" alt="Bosna Bäckerei – Logo" loading="lazy">
+                        <div class="cap"><strong>Logo</strong>Basis für Wiedererkennung: Wortmarke, Farben und Stil.</div>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="asset">
+                        <img src="../img/Bosna/flyer.jpg" alt="Bosna Bäckerei – Flyer (Print)" loading="lazy">
+                        <div class="cap"><strong>Flyer (Print)</strong>Klare Angebotsstruktur: Produkte, Preise, Kategorien, schnelle Lesbarkeit.</div>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="asset">
+                        <img src="../img/Bosna/offnugszeit.png" alt="Bosna Bäckerei – Öffnungszeiten" loading="lazy">
+                        <div class="cap"><strong>Öffnungszeiten</strong>Informations-Asset mit starker Aufmerksamkeit und eindeutigem Inhalt.</div>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="asset">
+                        <img src="../img/Bosna/banner.jpg" alt="Bosna Bäckerei – Banner" loading="lazy">
+                        <div class="cap"><strong>Banner</strong>Header/Top-Bar Look für Profil und Promotions.</div>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="asset">
+                        <img src="../img/Bosna/banner2.jpg" alt="Bosna Bäckerei – Promo Visual" loading="lazy">
+                        <div class="cap"><strong>Promo Visual</strong>Angebot/Preis im Fokus, geeignet für Social Posts oder Plakate.</div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="row g-3 mt-1">
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Meine Aufgaben</h3>
+                      <ul>
+                        <li><strong>Design</strong>: Posts, Banner, Info-Assets, Promo-Layouts</li>
+                        <li><strong>Print</strong>: druckfähige Dateien, saubere Exporte</li>
+                        <li><strong>Consistency</strong>: Typo, Farben, wiederkehrende Elemente</li>
+                        <li><strong>Varianten</strong>: schnelle Anpassungen für neue Angebote</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Warum es funktioniert</h3>
+                      <ul>
+                        <li><strong>Hierarchie</strong>: Headline → Produkt → Preis → Details</li>
+                        <li><strong>Wiedererkennung</strong>: gleiche Formensprache und Farben</li>
+                        <li><strong>Lesbarkeit</strong>: große Key-Infos, starke Kontraste</li>
+                        <li><strong>Skalierbar</strong>: Template-System spart Zeit</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-4">
+                <div class="pd-info reveal">
+                  <h3>Projektinfos</h3>
+                  <ul>
+                    <li><strong>Account</strong>: @bosnabaeckerei</li>
+                    <li><strong>Set</strong>: Logo + 4 Print/Social Assets</li>
+                    <li><strong>Formate</strong>: Banner (wide), Flyer (hoch), Info-Post, Promo</li>
+                    <li><strong>Ziel</strong>: Aufmerksamkeit + klare Information</li>
+                  </ul>
+
+                  <div class="metric-grid">
+                    <div class="metric"><div class="k">Anzahl Assets</div><div class="v">5</div></div>
+                    <div class="metric"><div class="k">Kanäle</div><div class="v">IG/Print</div></div>
+                    <div class="metric"><div class="k">Stil</div><div class="v">Bold</div></div>
+                    <div class="metric"><div class="k">Fokus</div><div class="v">Klar</div></div>
+                  </div>
+
+                  <p style="margin-top:12px;">
+                    Hinweis: Live-Feed-Integration kann später ergänzt werden, aktuell ist es bewusst als klarer Portfolio-Überblick aufgebaut.
+                  </p>
+                </div>
+
+           <!--     <div class="pd-info reveal" style="margin-top:14px;">
+                  <h3>Instagram Profil (Preview)</h3>
+                  <p>Statische Vorschau, damit man sofort sieht, wie der Content zusammen wirkt.</p>
+
+                  <div class="ig">
+                    <div class="ig-top">
+                      <div class="ig-ava">
+                        <img src="../img/Bosna/logo.jpg" alt="Profilbild – Logo" loading="lazy">
+                      </div>
+                      <div class="ig-title">
+                        <p class="ig-handle">@bosnabaeckerei</p>
+                        <p class="ig-bio">Bäckerei • Buregdžinica • Angebote & Klassiker • Berlin</p>
+                        <p class="ig-note">Content: Produkte, Angebote, Öffnungszeiten, Banner.</p>
+                      </div>
+                    </div>
+
+                    <div class="ig-grid">
+                      <div class="ig-post"><img src="../img/Bosna/flyer.jpg" alt="Preview Post 01" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/offnugszeit.png" alt="Preview Post 02" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/banner2.jpg" alt="Preview Post 03" loading="lazy"></div>
+
+                      <div class="ig-post"><img src="../img/Bosna/banner.jpg" alt="Preview Post 04" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/logo.jpg" alt="Preview Post 05" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/flyer.jpg" alt="Preview Post 06" loading="lazy"></div>
+
+                      <div class="ig-post"><img src="../img/Bosna/offnugszeit.png" alt="Preview Post 07" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/banner2.jpg" alt="Preview Post 08" loading="lazy"></div>
+                      <div class="ig-post"><img src="../img/Bosna/banner.jpg" alt="Preview Post 09" loading="lazy"></div>
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+            </div>
+
+            <div class="row g-3 mt-3">
+              <div class="col-lg-6">
+                <div class="pd-info reveal">
+                  <h3>Prozess</h3>
+                  <ul>
+                    <li><strong>Brief</strong>: Ziel, Angebot, Format, Deadline</li>
+                    <li><strong>Layout</strong>: Raster, Typo, Hierarchie, Bildauswahl</li>
+                    <li><strong>Iteration</strong>: Varianten (Text/Preis/Fokus)</li>
+                    <li><strong>Export</strong>: Print-ready + Social-ready</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="pd-info reveal">
+                  <h3>Kurze Checkliste</h3>
+                  <ul>
+                    <li><strong>Lesbarkeit</strong>: Preis/Headline gut sichtbar am Handy</li>
+                    <li><strong>Kontrast</strong>: Text bleibt klar auf dem Hintergrund</li>
+                    <li><strong>Konsistenz</strong>: Farben/Typo passen zur Marke</li>
+                    <li><strong>Export</strong>: richtige Größen für Social/Print</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // entrance animation
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); });
+    }, { threshold: 0.12 });
+
+    window.addEventListener('load', () => {
+      revealEls.forEach((el, i) => setTimeout(() => io.observe(el), 60 * i));
+    });
+
+    // Swiper wow effect (coverflow)
+    const swiper = new Swiper('.portfolio-details-slider', {
+      loop: true,
+      speed: 900,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      grabCursor: true,
+      spaceBetween: 26,
+      autoplay: { delay: 2600, disableOnInteraction: false },
+      effect: 'coverflow',
+      coverflowEffect: { rotate: 0, stretch: 70, depth: 220, modifier: 1, slideShadows: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.pd-next', prevEl: '.pd-prev' }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>Software Testing (UX) | Craigslist Web + Mobile Web | Elma Saliji</title>
+  <meta name="description" content="UX/QA Case Study (Web + Mobile Web) für Craigslist: Test Scope, Test Strategy, 5 Tasks, Heuristik-Check, Findings, Regression und Mini-Automation." />
+  <meta name="keywords" content="Software Testing, QA, UX Testing, Usability, Heuristic Evaluation, Craigslist, Web, Mobile Web" />
+
+  <link href="../img/favicon.ico" rel="icon" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+  <link href="../css/style.css" rel="stylesheet" />
+
+  <style>
+    :root{
+      --qa: #4aa3ff;
+      --qa2:#18d26e;
+      --warn:#ffbb2c;
+      --ink: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.76);
+      --card: rgba(0,0,0,.55);
+      --line: rgba(255,255,255,.08);
+    }
+
+    /* --- Page layout --- */
+    .pd-wrap{ position: relative; padding: 36px 0 26px; }
+
+    .pd-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+
+    .pd-hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(74,163,255,.35), transparent 45%),
+        radial-gradient(circle at 82% 30%, rgba(24,210,110,.18), transparent 45%),
+        radial-gradient(circle at 55% 88%, rgba(255,187,44,.16), transparent 55%);
+      filter: blur(28px);
+      opacity: .88;
+      transform: translate3d(0,0,0);
+      animation: floatGlow 10s ease-in-out infinite alternate;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes floatGlow{
+      0%{ transform: translateY(-10px) scale(1.02); }
+      100%{ transform: translateY(14px) scale(1.06); }
+    }
+
+    .pd-inner{ position: relative; z-index: 1; padding: 28px; }
+
+    .pd-title{
+      font-family: "Poppins", sans-serif;
+      font-weight: 900;
+      letter-spacing: .2px;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+    .pd-sub{
+      color: var(--muted);
+      margin: 0 0 18px;
+      max-width: 74ch;
+      line-height: 1.65;
+    }
+
+    .tagrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .tag{
+      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      user-select:none;
+      white-space: nowrap;
+    }
+
+    /* --- Info cards --- */
+    .pd-info{
+      background: rgba(0,0,0,.40);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .pd-info h3{
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-weight: 900;
+      font-family:"Poppins",sans-serif;
+      letter-spacing: .1px;
+    }
+    .pd-info p{ margin: 0 0 10px; color: var(--muted); line-height: 1.65; }
+    .pd-info ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      font-size: 14px;
+      color: rgba(255,255,255,.84);
+    }
+    .pd-info ul li{
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      line-height: 1.55;
+    }
+    .pd-info ul li:last-child{ border-bottom: none; }
+
+    .metric-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .metric{
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
+    }
+    .metric .k{ font-size: 12px; color: rgba(255,255,255,.70); margin-bottom: 4px; }
+    .metric .v{
+      font-family:"Poppins",sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    /* --- Slider: UX pain points --- */
+    .pd-slider{ padding: 18px 10px 30px; }
+
+    /* CHANGED: darker slide container (less transparent) */
+    .pd-slider .swiper-slide{
+      width: 460px;
+      max-width: 92vw;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0,0,0,.68);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,.58),
+        0 0 0 1px rgba(255,255,255,.05) inset;
+      transform: translateZ(0);
+    }
+
+    /* CHANGED: darker readable card background */
+    .slide-card{
+      padding: 18px 16px 16px;
+      min-height: 290px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(74,163,255,.12), transparent 48%),
+        radial-gradient(circle at 80% 26%, rgba(24,210,110,.10), transparent 44%),
+        linear-gradient(180deg, rgba(0,0,0,.64), rgba(0,0,0,.64));
+    }
+
+    .slide-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .slide-ico{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.40);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset;
+      flex: 0 0 auto;
+    }
+    .slide-ico i{ font-size: 20px; color: var(--qa); }
+
+    /* CHANGED: pill a bit more opaque */
+    .slide-pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,163,255,.34);
+      background: rgba(74,163,255,.18);
+      color: rgba(255,255,255,.92);
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .slide-card h3{
+      font-family:"Poppins",sans-serif;
+      font-weight: 900;
+      margin: 0;
+      font-size: 18px;
+      color: rgba(255,255,255,.96);
+    }
+    .slide-card p{
+      margin: 0;
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .slide-list{
+      list-style:none;
+      padding:0;
+      margin: 6px 0 0;
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+    }
+    .slide-list li{
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .slide-list li::before{
+      content:"";
+      position:absolute;
+      left: 6px;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(24,210,110,.80);
+      box-shadow: 0 0 0 4px rgba(24,210,110,.14);
+    }
+
+    .pd-slider .swiper-slide-active{
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.70),
+        0 0 0 1px rgba(74,163,255,.30) inset,
+        0 0 34px rgba(74,163,255,.14);
+    }
+
+    .pd-slider .swiper-pagination-bullet{
+      background: rgba(255,255,255,.35);
+      opacity: 1;
+    }
+    .pd-slider .swiper-pagination-bullet-active{
+      background: var(--qa2);
+    }
+
+    .pd-nav{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pd-btn{
+      width:42px;
+      height:42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pd-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(74,163,255,.16);
+      border-color: rgba(74,163,255,.35);
+    }
+
+    /* Tables */
+    .pd-table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .pd-table th, .pd-table td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      vertical-align: top;
+      font-size: 13px;
+      color: rgba(255,255,255,.82);
+      line-height: 1.5;
+    }
+    .pd-table th{
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      color: rgba(255,255,255,.75);
+      background: rgba(0,0,0,.20);
+    }
+    .pd-table tr:last-child td{ border-bottom: none; }
+
+    .sev{ padding: 3px 8px; border-radius: 999px; font-size: 12px; border:1px solid transparent; display:inline-block; }
+    .sev.critical{ background: rgba(255,77,79,.14); border-color: rgba(255,77,79,.35); color: rgba(255,255,255,.92); }
+    .sev.major{ background: rgba(255,187,44,.14); border-color: rgba(255,187,44,.35); color: rgba(255,255,255,.92); }
+    .sev.minor{ background: rgba(74,163,255,.14); border-color: rgba(74,163,255,.35); color: rgba(255,255,255,.92); }
+    .sev.cosmetic{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); color: rgba(255,255,255,.85); }
+
+    pre{
+      margin:0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.28);
+      color: rgba(255,255,255,.88);
+      overflow:auto;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    /* Reveal */
+    .reveal{ opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-in{ opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+
+<body>
+  <main id="main">
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container pd-wrap">
+
+        <div class="pd-hero reveal">
+          <div class="pd-inner">
+
+            <div class="row gy-4 align-items-start">
+              <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-start gap-3">
+                  <div>
+                    <h2 class="pd-title">Craigslist – UX/QA Testing (Web + Mobile Web)</h2>
+                    <p class="pd-sub">
+                      Fokus: Usability- und UX-Testing für einen Marketplace mit stark textlastigem Interface.
+                      Ziel ist es, Pain Points messbar zu machen (Task Success, Time-on-Task, Errors),
+                      systematisch zu bewerten (Heuristiken) und konkrete, testbare Verbesserungen abzuleiten.
+                    </p>
+
+                    <div class="tagrow">
+                      <span class="tag"><i class="bi bi-laptop"></i> Web</span>
+                      <span class="tag"><i class="bi bi-phone"></i> Mobile Web</span>
+                      <span class="tag"><i class="bi bi-person-check"></i> Usability Tests</span>
+                      <span class="tag"><i class="bi bi-list-check"></i> Heuristic Evaluation</span>
+                      <span class="tag"><i class="bi bi-universal-access"></i> Accessibility QA</span>
+                    </div>
+                  </div>
+
+                  <div class="pd-nav">
+                    <button class="pd-btn pd-prev" aria-label="Previous slide">
+                      <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="pd-btn pd-next" aria-label="Next slide">
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Slider = Top UX Pain Points -->
+                <div class="swiper pd-slider portfolio-details-slider reveal">
+                  <div class="swiper-wrapper align-items-center">
+
+                    <div class="swiper-slide">
+                      <div class="slide-card">
+                        <div class="slide-top">
+                          <div class="slide-ico"><i class="bi bi-ui-checks-grid"></i></div>
+                          <div class="slide-pill">Affordance</div>
+                        </div>
+                        <h3>Text-lastig, wenig “click cues”</h3>
+                        <p>Viele Interaktionen wirken wie reine Textlisten statt klarer Buttons/Actions.</p>
+                        <ul class="slide-list">
+                          <li>CTAs nicht visuell priorisiert</li>
+                          <li>Nutzer “raten” den Startpunkt</li>
+                          <li>Mehr cognitive load beim Scannen</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="slide-card">
+                        <div class="slide-top">
+                          <div class="slide-ico"><i class="bi bi-search"></i></div>
+                          <div class="slide-pill">Findability</div>
+                        </div>
+                        <h3>Search/Filter führt nicht genug</h3>
+                        <p>Im Marketplace entscheidet Findability über Erfolg oder Abbruch.</p>
+                        <ul class="slide-list">
+                          <li>Filter/Sort mental anstrengend</li>
+                          <li>Location/Region nicht “instant klar”</li>
+                          <li>Ergebnisse schwer zu vergleichen</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="slide-card">
+                        <div class="slide-top">
+                          <div class="slide-ico"><i class="bi bi-plus-square"></i></div>
+                          <div class="slide-pill">Posting Flow</div>
+                        </div>
+                        <h3>Posting Einstieg + Kategorien</h3>
+                        <p>Wenn Start/Guidance fehlt, brechen Nutzer früh ab.</p>
+                        <ul class="slide-list">
+                          <li>CTA kann übersehen werden</li>
+                          <li>Kategorien wirken wie “Wall of text”</li>
+                          <li>Zu wenig Preview/Feedback</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                      <div class="slide-card">
+                        <div class="slide-top">
+                          <div class="slide-ico"><i class="bi bi-shield-exclamation"></i></div>
+                          <div class="slide-pill">Trust</div>
+                        </div>
+                        <h3>Vertrauen & Sicherheit (Perception)</h3>
+                        <p>Nutzer brauchen klare Signale, dass Interaktionen sicher/seriös sind.</p>
+                        <ul class="slide-list">
+                          <li>Unklare “safe usage” guidance</li>
+                          <li>Wenig Feedback bei riskanten Actions</li>
+                          <li>Scam-prevention UX fehlt</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+
+                <!-- Test Scope + Strategy -->
+                <div class="row g-3 mt-1">
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Test Scope</h3>
+                      <ul>
+                        <li><strong>Plattformen</strong>: Web + Mobile Web (responsive Verhalten, Tap targets, Layout)</li>
+                        <li><strong>In-Scope (UX)</strong>: Navigation, Findability, Information Architecture, Feedback, Error Recovery, Trust</li>
+                        <li><strong>In-Scope (QA)</strong>: UI Bugs, Broken states, Formular-Validation, State loss (filter/region), Performance “perception”</li>
+                        <li><strong>Out-of-Scope</strong>: Interne Moderation, Fraud-Backend, Payment/Checkout (falls extern)</li>
+                      </ul>
+                      <p style="margin-top:10px;">
+                        Fokus liegt auf End-to-End Tasks, weil dort die größten Abbrüche messbar sind.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="pd-info reveal">
+                      <h3>Test Strategy</h3>
+                      <ul>
+                        <li><strong>Heuristic Evaluation</strong>: Nielsen-Heuristiken, Severity 0–4, Quick Wins markieren</li>
+                        <li><strong>Moderated Usability</strong>: Think-aloud, 5 Sessions, gleiche Tasks auf Web + Mobile Web</li>
+                        <li><strong>Metrics</strong>: Task Success, Time-on-Task, Error Count, Confidence (1–5), Drop-off Point</li>
+                        <li><strong>Exploratory UX</strong>: 3 Zeitboxen à 45 Min (Search, Listing, Posting)</li>
+                      </ul>
+                      <p style="margin-top:10px;">
+                        Output: Findings Matrix + Prioritätenliste (P0–P2) + Regression Pack nach Fixes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right column -->
+              <div class="col-lg-4">
+                <div class="pd-info reveal">
+                  <h3>Projekt Setup</h3>
+                  <ul>
+                    <li><strong>Produkt</strong>: Craigslist (UX-Fokus)</li>
+                    <li><strong>Rolle</strong>: QA / UX Tester</li>
+                    <li><strong>Target</strong>: First-time users + erfahrene Marketplace Nutzer</li>
+                    <li><strong>Devices</strong>: Desktop (Chrome), Mobile Web (iOS/Android)</li>
+                    <li><strong>Methoden</strong>: Heuristics + Usability + Accessibility</li>
+                  </ul>
+
+                  <div class="metric-grid">
+                    <div class="metric">
+                      <div class="k">Teilnehmer</div>
+                      <div class="v">5</div>
+                    </div>
+                    <div class="metric">
+                      <div class="k">Tasks</div>
+                      <div class="v">5</div>
+                    </div>
+                    <div class="metric">
+                      <div class="k">Findings</div>
+                      <div class="v">18</div>
+                    </div>
+                    <div class="metric">
+                      <div class="k">Quick Wins</div>
+                      <div class="v">9</div>
+                    </div>
+                  </div>
+
+                  <p style="margin-top:12px;">
+                    Ziel: messbare UX-Probleme → klare Empfehlungen → testbare Acceptance Criteria.
+                  </p>
+                </div>
+
+                <div class="pd-info reveal" style="margin-top: 14px;">
+                  <h3>5 Test Tasks (Web + Mobile Web)</h3>
+                  <ul>
+                    <li><strong>T1 Findability</strong>: “Finde ein Fahrrad unter 200€ in deiner Nähe und öffne ein relevantes Listing.”</li>
+                    <li><strong>T2 Filter + Scanning</strong>: “Suche weiter, versuche Filter/Sort; wähle 2 beste Optionen (begründe kurz).”</li>
+                    <li><strong>T3 Listing Comprehension</strong>: “Nenne Preis, Location, Zustand, Abholung/Details – ohne lange zu suchen.”</li>
+                    <li><strong>T4 Contact Flow</strong>: “Starte Kontakt und formuliere eine kurze Nachricht (Verfügbarkeit + Abholung).”</li>
+                    <li><strong>T5 Posting Flow</strong>: “Erstelle einen Post: ‘Stuhl’, 25€, Beschreibung, Location, optional Bild; korrigiere einen Fehler.”</li>
+                  </ul>
+                  <p style="margin-top:10px;">
+                    Gleiche Tasks auf Desktop und Mobile Web, um Unterschiede in Tap/Scroll/Readability zu sehen.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Findings -->
+            <div class="row g-3 mt-3">
+              <div class="col-lg-7">
+                <div class="pd-info reveal">
+                  <h3>Findings Matrix (Auszug)</h3>
+                  <table class="pd-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Task</th>
+                        <th>Problem</th>
+                        <th>Severity</th>
+                        <th>Recommendation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>UX-01</td>
+                        <td>T5</td>
+                        <td>Posting Einstieg nicht klar priorisiert; Nutzer scrollt/scannt lange</td>
+                        <td><span class="sev major">Major</span></td>
+                        <td>Primary CTA visuell hervorheben; klare Beschriftung; “Start posting” prominent platzieren</td>
+                      </tr>
+                      <tr>
+                        <td>UX-03</td>
+                        <td>T5</td>
+                        <td>Kategorien wirken wie “Wall of text”; Entscheidung dauert, Fehlklicks</td>
+                        <td><span class="sev major">Major</span></td>
+                        <td>Chunking + kurze Beispiele; Suche innerhalb Kategorien; progressive disclosure</td>
+                      </tr>
+                      <tr>
+                        <td>UX-05</td>
+                        <td>T2</td>
+                        <td>Filter/Sort State unklar (apply/reset); Nutzer verliert Kontext</td>
+                        <td><span class="sev minor">Minor</span></td>
+                        <td>Active filter chips; “Reset all”; klarer “Applied” status</td>
+                      </tr>
+                      <tr>
+                        <td>UX-07</td>
+                        <td>T1</td>
+                        <td>Location/Region Feedback nicht eindeutig; Nutzer zweifelt, ob Nähe stimmt</td>
+                        <td><span class="sev minor">Minor</span></td>
+                        <td>Location deutlich anzeigen (header); leichter change + undo; persistente Anzeige</td>
+                      </tr>
+                      <tr>
+                        <td>UX-10</td>
+                        <td>T3</td>
+                        <td>Listing Infos schwer scannbar (mobile web: zoom/line breaks)</td>
+                        <td><span class="sev minor">Minor</span></td>
+                        <td>Info hierarchy: Preis/Ort/Status oben; bessere spacing; responsive typography</td>
+                      </tr>
+                      <tr>
+                        <td>UX-12</td>
+                        <td>T4</td>
+                        <td>Kontakt-Action wirkt unsicher; zu wenig Feedback “was passiert jetzt?”</td>
+                        <td><span class="sev major">Major</span></td>
+                        <td>Clear confirmation state; trust copy; anti-scam guidance direkt im flow</td>
+                      </tr>
+                      <tr>
+                        <td>AX-02</td>
+                        <td>T1–T5</td>
+                        <td>Focus visibility teilweise schwach; Keyboard flow verliert Orientierung</td>
+                        <td><span class="sev major">Major</span></td>
+                        <td>Starker Focus ring; keine “outline: none”; sichtbare Fokus-Reihenfolge</td>
+                      </tr>
+                      <tr>
+                        <td>QA-04</td>
+                        <td>T5</td>
+                        <td>Fehlermeldungen zu generisch (Form); Recovery dauert</td>
+                        <td><span class="sev minor">Minor</span></td>
+                        <td>Field-level errors + konkrete Hinweise + Beispielwerte</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p style="margin-top:10px;">
+                    Severity basiert auf Task Blocker, Häufigkeit, und Funnel-Impact (Buyer/Seller).
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-lg-5">
+                <div class="pd-info reveal">
+                  <h3>Heuristic Mapping (Nielsen)</h3>
+                  <p>Jedes Finding wird einer Heuristik zugeordnet für klare Argumentation.</p>
+                  <table class="pd-table">
+                    <thead>
+                      <tr>
+                        <th>Finding</th>
+                        <th>Heuristic</th>
+                        <th>Why it matters</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>UX-01</td>
+                        <td>Visibility of system status</td>
+                        <td>Wichtige Aktion wird nicht als “primary” wahrgenommen</td>
+                      </tr>
+                      <tr>
+                        <td>UX-03</td>
+                        <td>Recognition rather than recall</td>
+                        <td>Nutzer müssen Kategorien “merken/erraten” statt erkennen</td>
+                      </tr>
+                      <tr>
+                        <td>UX-05</td>
+                        <td>User control & freedom</td>
+                        <td>Reset/Undo/State clarity reduziert Frust</td>
+                      </tr>
+                      <tr>
+                        <td>UX-12</td>
+                        <td>Help users recover from errors</td>
+                        <td>Feedback + guidance reduziert Unsicherheit und Drop-off</td>
+                      </tr>
+                      <tr>
+                        <td>AX-02</td>
+                        <td>Consistency & standards</td>
+                        <td>Keyboard standards sind Teil “expected behavior”</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="pd-info reveal">
+                  <h3>Usability Test Plan (Kurz)</h3>
+                  <ul>
+                    <li><strong>Sessions</strong>: 5 Teilnehmer, 30–35 Minuten, moderated + think-aloud</li>
+                    <li><strong>Protokoll</strong>: Notizen pro Task (Start, Friction, Errors, Completion)</li>
+                    <li><strong>Nachfragen</strong>: “Was erwartest du hier?”, “Was hat dich irritiert?”</li>
+                    <li><strong>Output</strong>: Findings + klare Recommendations</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="pd-info reveal">
+                  <h3>Regression Pack (nach Fixes)</h3>
+                  <ul>
+                    <li><strong>R1</strong>: T1 Search + Region: klare Anzeige + stabiler State</li>
+                    <li><strong>R2</strong>: T2 Filter apply/reset: chips sichtbar, reset funktioniert, kein state loss</li>
+                    <li><strong>R3</strong>: T3 Listing readability: scannable on mobile web (no zoom needed)</li>
+                    <li><strong>R4</strong>: T4 Contact: clear feedback + safe guidance</li>
+                    <li><strong>R5</strong>: T5 Posting: Kategorien schneller, Fehlertexte konkret, back/undo ohne Datenverlust</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="pd-info reveal">
+                  <h3>Mini Automation (Smoke – nur Guardrails)</h3>
+                  <p>Diese Checks sind bewusst generisch, damit sie UI-Änderungen überleben.</p>
+                  <pre><code>// Pseudo-code (UI smoke)
+test('search is discoverable on web and mobile web', async ({ page }) =&gt; {
+  await page.goto('/');
+  await expect(page.locator('[data-test=search-input]')).toBeVisible();
+});
+
+test('filters show applied state and can reset', async ({ page }) =&gt; {
+  await page.goto('/search');
+  await page.fill('[data-test=search-input]', 'bike');
+  await page.click('[data-test=search-submit]');
+
+  await page.click('[data-test=filter-open]');
+  await page.fill('[data-test=filter-max-price]', '200');
+  await page.click('[data-test=filter-apply]');
+
+  await expect(page.locator('[data-test=filter-chip-max-price]')).toBeVisible();
+  await page.click('[data-test=filter-reset]');
+  await expect(page.locator('[data-test=filter-chip-max-price]')).toHaveCount(0);
+});</code></pre>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); });
+    }, { threshold: 0.12 });
+
+    window.addEventListener('load', () => {
+      revealEls.forEach((el, i) => setTimeout(() => io.observe(el), 60 * i));
+    });
+
+    // Swiper coverflow
+    const swiper = new Swiper('.portfolio-details-slider', {
+      loop: true,
+      speed: 900,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      grabCursor: true,
+      spaceBetween: 26,
+      autoplay: { delay: 2600, disableOnInteraction: false },
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 70,
+        depth: 220,
+        modifier: 1,
+        slideShadows: false
+      },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.pd-next', prevEl: '.pd-prev' }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-js">
+          <div class="portfolio-wrap">
+            <img src="assets/img/js/JavaScript.png" class="img-fluid" alt="JavaScript Name Input Project">
+            <div class="portfolio-info">
+              <h4>Name Input</h4>
+              <p>JavaScript</p>
+              <div class="portfolio-links">
+                <a href="assets/img/js/JavaScript.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="JavaScript"><i class="bx bx-plus"></i></a>
+                <a href="https://elmasaliji.github.io/JavaScript1/" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Live Demo"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-js">
+          <div class="portfolio-wrap">
+            <img src="assets/img/js/JavaScript.png" class="img-fluid" alt="JavaScript To-Do List Project">
+            <div class="portfolio-info">
+              <h4>To-Do LIST</h4>
+              <p>JavaScript</p>
+              <div class="portfolio-links">
+                <a href="assets/img/js/JavaScript.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="JavaScript"><i class="bx bx-plus"></i></a>
+                <a href="https://elmasaliji.github.io/JavaScript2/" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Live Demo"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-js">
+          <div class="portfolio-wrap">
+            <img src="assets/img/js/JavaScript.png" class="img-fluid" alt="JavaScript Clicker Game Project">
+            <div class="portfolio-info">
+              <h4>Clicker Game</h4>
+              <p>JavaScript</p>
+              <div class="portfolio-links">
+                <a href="assets/img/js/JavaScript.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="JavaScript"><i class="bx bx-plus"></i></a>
+                <a href="https://elmasaliji.github.io/JavaScript3/" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Live Demo"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-js">
+          <div class="portfolio-wrap">
+            <img src="assets/img/js/JavaScript.png" class="img-fluid" alt="JavaScript API Keys Project">
+            <div class="portfolio-info">
+              <h4>API Keys</h4>
+              <p>JavaScript</p>
+              <div class="portfolio-links">
+                <a href="assets/img/js/JavaScript.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="JavaScript"><i class="bx bx-plus"></i></a>
+                <a href="https://elmasaliji.github.io/JavaScript4Api/" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Live Demo"><i class="bx bx-link"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
